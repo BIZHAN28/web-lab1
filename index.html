@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <title>web</title>
+  </head>
+  <body>
+    <header id = "head">
+      <div>Бижанов Расул Сунгатович, P3206</div>
+      <br>
+      Вариант:
+    </header>
+    <table>
+      <tr>
+        <td>
+          <table>
+            <tr>
+              <td class="inputCell">
+                Enter X:
+                <br>
+                <input type="text" id="xInput" placeholder="Should be between -3 and 5" size=25>
+              </td>
+            </tr>
+            <tr>
+              <td class="inputCell">
+                Enter Y:
+                <br>
+                <button type="button" id="yInput">-4</button>
+                <button type="button" id="yInput">-3</button>
+                <button type="button" id="yInput">-2</button>
+                <button type="button" id="yInput">-1</button>
+                <button type="button" id="yInput">0</button>
+                <button type="button" id="yInput">1</button>
+                <button type="button" id="yInput">2</button>
+                <button type="button" id="yInput">3</button>
+                <button type="button" id="yInput">4</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="inputCell">
+                Enter R:
+                <br>
+                <button type="button" id="rInput">1</button>
+                <button type="button" id="rInput">2</button>
+                <button type="button" id="rInput">3</button>
+                <button type="button" id="rInput">4</button>
+                <button type="button" id="rInput">5</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="sendCell">
+                <button type="button" name="button" id="sendButton">Send</button>
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td>
+          <canvas id="canvas" width="600" height="600"></canvas>
+        </td>
+        <td>
+          <table id="resultTable">
+            <tr>
+              <th>X</th>
+              <th>Y</th>
+              <th>R</th>
+              <th>Is hit</th>
+              <th>Time</th>
+              <th>Execute time</th>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+    </table>
+    <link rel="stylesheet" href="style.css">
+    <script src="addToTable.js"></script>
+    <script src="getData.js"></script>
+    <script src="graph.js"></script>
+    <script src="inputCell.js"></script>
+    <script>
+      document.getElementById("sendButton").addEventListener("click", function () {
+        var x = document.getElementById("xInput").value;
+        if (isNaN(x) || x < -3 || x > 5 || x=="") {
+          alert("Invalid X value. Please enter a number between -3 and 5.");
+          return;
+        }
+        const yInputs = document.querySelectorAll("#yInput");
+        const rInputs = document.querySelectorAll("#rInput");
+        var y,r;
+        var yIsChoosed = false;
+        var rIsChoosed = false;
+        for (const yInput of yInputs) {
+          if (yInput.disabled) {
+            yIsChoosed = yInput.disabled;
+            y = yInput.textContent;
+          }
+        }
+        for (const rInput of rInputs) {
+          if (rInput.disabled) {
+            rIsChoosed = rInput.disabled;
+            r = rInput.textContent;
+          }
+        }
+        if (!yIsChoosed){
+          alert("Invalid Y value. Please choose Y value.");
+          return;
+        }
+        if (!rIsChoosed){
+          alert("Invalid R value. Please choose R value.");
+          return;
+        }
+        getIsIntersects(x,y,r);
+    });
+  </script>
+  </body>
+</html>
